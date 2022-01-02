@@ -8,3 +8,4 @@ All problems are completed according to prompts, but without referencing answers
 
     * Fahrenheit -> Celsius converter
     * Fibonacci Sequence Indexer
+    * 12 Days of Christmas 
