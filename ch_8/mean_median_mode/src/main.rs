@@ -47,9 +47,15 @@ fn main() {
             return
         }
     }
+    print_number_set(&v);
+
+    compute_mean(&v);
+}
+
+fn print_number_set(v: &Vec<f64>) {
     print!("\nYour number set: ");
     let mut count = 0;
-    for num in &v {
+    for num in v {
         print!("{}", num);
         if count == v.len() - 1 {
             println!("\n");
@@ -58,11 +64,12 @@ fn main() {
         }
         count += 1;
     }
+}
 
-    // compute mean
+fn compute_mean(v: &Vec<f64>) {
     let mut sum: f64 = 0.0;
     let mut count = 0;
-    for num in &v {
+    for num in v {
         sum += num;
         count += 1;
     }
