@@ -78,11 +78,15 @@ fn compute_mean(v: &Vec<f64>) {
     let mean: f64 = sum / count as f64;
     println!("The mean of this number set is {}.\n", mean);
 }
+
 fn compute_median(v: &mut Vec<f64>) {
+    // floats cannot be sorted by .sort() or .sort_unstable(); they must be ordered
+    // using the cmp (comparison) module. Pass sort_by a closure, compare and unwrap.
     v.sort_by(|a,b| a.partial_cmp(b).unwrap());
-    println!("{:?}", v);
+    // if there are an odd number of elements in the vec, take the middle element
     if v.len() % 2 != 0 {
         println!("The median of this set is {}.\n", v[(v.len() - 1) / 2]);
+    // if the number of elements are even, take the middle 2 and average them.    
     } else {
         let n1 = v[(v.len() / 2) - 1];
         let n2 = v[v.len() / 2];
