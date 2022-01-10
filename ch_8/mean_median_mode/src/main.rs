@@ -47,16 +47,25 @@ fn main() {
             return
         }
     }
-
-    println!("{:?}", v);
+    print!("\nYour number set: ");
+    let mut count = 0;
+    for num in &v {
+        print!("{}", num);
+        if count == v.len() - 1 {
+            println!("\n");
+        } else {
+            print!(", ");
+        }
+        count += 1;
+    }
 
     // compute mean
     let mut sum: f64 = 0.0;
     let mut count = 0;
-    for num in v {
+    for num in &v {
         sum += num;
         count += 1;
     }
     let mean: f64 = sum / count as f64;
-    println!("The mean of the number set is {}", mean);
+    println!("The mean of this number set is {}.\n", mean);
 }
