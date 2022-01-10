@@ -2,7 +2,7 @@ use std::io;
 
 fn main() {
     let mut input = String::new();
-    let mut v: Vec<usize> = Vec::new();
+    let mut v: Vec<isize> = Vec::new();
 
 
     println!("\nMean is the average value of a set of numbers. Median is the number that");
@@ -19,7 +19,7 @@ fn main() {
     for c in input.trim().chars() {
         match c {
             '1'| '2'| '3' | '4' | '5' | '6' |'7' | '8' | '9' | '0' => (),
-            ',' | ' ' => (),
+            ',' | ' ' | '-' => (),
             _ => {
                 println!("\nPlease, numbers, spaces, or commas only.");
                 return
@@ -30,8 +30,12 @@ fn main() {
     let input = input.replace(",", " ");
 
     for num in input.split_whitespace() {
-        let num: usize = num.parse().unwrap();
-        v.push(num);
+        if let Ok(num) = num.parse::<isize>() {
+            v.push(num);
+        } else {
+            println!("If you're planning to use negative numbers, please put the - at the beginning.");
+            return
+        }
     }
 
     println!("{:?}", v);
