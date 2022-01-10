@@ -2,7 +2,7 @@ use std::io;
 
 fn main() {
     let mut input = String::new();
-    let mut v: Vec<isize> = Vec::new();
+    let mut v: Vec<f64> = Vec::new();
 
 
     println!("\nMean is the average value of a set of numbers. Median is the number that");
@@ -20,9 +20,9 @@ fn main() {
     for c in input.trim().chars() {
         match c {
             '1'| '2'| '3' | '4' | '5' | '6' |'7' | '8' | '9' | '0' => (),
-            ',' | ' ' | '-' => (),
+            ',' | ' ' | '-' | '.' => (),
             _ => {
-                println!("\nPlease, numbers, spaces, or commas only.");
+                println!("\nPlease, numbers, spaces, periods, dashes, or commas only.");
                 return
             }
         }
@@ -38,6 +38,9 @@ fn main() {
         // num.parse::<isize>() will convert the split string to an isize, and it will push
         // onto the vector if it is valid. 
         if let Ok(num) = num.parse::<isize>() {
+            let num = num as f64;
+            v.push(num);
+        } else if let Ok(num) = num.parse::<f64>() {
             v.push(num);
         } else {
             println!("If you're planning to use negative numbers, please put the - at the beginning.");
@@ -46,4 +49,14 @@ fn main() {
     }
 
     println!("{:?}", v);
+
+    // compute mean
+    let mut sum: f64 = 0.0;
+    let mut count = 0;
+    for num in v {
+        sum += num;
+        count += 1;
+    }
+    let mean: f64 = sum / count as f64;
+    println!("The mean of the number set is {}", mean);
 }
