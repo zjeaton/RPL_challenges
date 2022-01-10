@@ -50,6 +50,8 @@ fn main() {
     print_number_set(&v);
 
     compute_mean(&v);
+
+    compute_median(&mut v);
 }
 
 fn print_number_set(v: &Vec<f64>) {
@@ -75,4 +77,15 @@ fn compute_mean(v: &Vec<f64>) {
     }
     let mean: f64 = sum / count as f64;
     println!("The mean of this number set is {}.\n", mean);
+}
+fn compute_median(v: &mut Vec<f64>) {
+    v.sort_by(|a,b| a.partial_cmp(b).unwrap());
+    println!("{:?}", v);
+    if v.len() % 2 != 0 {
+        println!("The median of this set is {}.\n", v[(v.len() - 1) / 2]);
+    } else {
+        let n1 = v[(v.len() / 2) - 1];
+        let n2 = v[v.len() / 2];
+        println!("The median of this set is {}.\n", (n1 + n2) / 2.0 );
+    }
 }
