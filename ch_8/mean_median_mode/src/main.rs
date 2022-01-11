@@ -17,6 +17,12 @@ fn main() {
         .read_line(&mut input)
         .expect("Failed to read line");
 
+    // program will panic if the user hits enter without any input
+    if input.starts_with('\r') || input.starts_with('\n') {
+        println!("Please type at least one number.\n");
+        return
+    }
+
     // checks to ensure that every character in the string is a digit, comma, space, or dash.
     for c in input.trim().chars() {
         match c {
@@ -44,7 +50,8 @@ fn main() {
         } else if let Ok(num) = num.parse::<f64>() {
             v.push(num);
         } else {
-            println!("If you're planning to use negative numbers, please put the - at the beginning.");
+            println!("\nIf you're using negative numbers, please put the - at the beginning."); 
+            println!("If you're using decimals, use only one period per number.\n");
             return
         }
     }
