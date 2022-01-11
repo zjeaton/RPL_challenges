@@ -17,6 +17,7 @@ fn main() {
     }
 
     // if there are numbers in the string, print error and return
+    let mut count = 0;
     for c in input.trim().chars() {
         match c {
             '1'| '2'| '3' | '4' | '5' | '6' |'7' | '8' | '9' | '0' => {
@@ -25,6 +26,14 @@ fn main() {
             },
             _ => (),
         }
+        count += 1;
+    }
+
+    // catches if any letter requires more than one byte, which filters out
+    // words written in languages with letters the outside US-ASCII alphabet
+    if input.trim().as_bytes().len() > count {
+        println!("\nPlease only use english words and punctution.\n");
+        return
     }
 
     println!("\n{}", input);
