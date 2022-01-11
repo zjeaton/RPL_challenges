@@ -1,4 +1,5 @@
 use std::io;
+use std::collections::HashMap;
 
 fn main() {
     let mut input = String::new();
@@ -52,6 +53,8 @@ fn main() {
     compute_mean(&v);
 
     compute_median(&mut v);
+
+    compute_mode(&v);
 }
 
 fn print_number_set(v: &Vec<f64>) {
@@ -92,4 +95,75 @@ fn compute_median(v: &mut Vec<f64>) {
         let n2 = v[v.len() / 2];
         println!("The median of this set is {}.\n", (n1 + n2) / 2.0 );
     }
+}
+
+fn compute_mode(v: &Vec<f64>){
+    // create map to store numbers in vec and count of occurences
+    let mut map = HashMap::<String, u32>::new();
+    for num in v {
+        // cannot put f64 into HashMap as is, so convert to string.
+        let num = num.to_string();
+        let count = map.entry(num).or_insert(0);
+        *count += 1;
+    }
+    println!("{:?}", map);
+    
+    // put it back into a vector
+    let mut num_count: Vec<_> = map.iter().collect();
+    // place the occurences in decending order
+    num_count.sort_by(|a,b| a.1.cmp(b.1).reverse());
+    
+    println!("{:?}", num_count);
+
+    let mut count = 0;
+    let mut occurences = 0;
+    let mut nums = Vec::new();
+    for (key, val) in &num_count {
+
+        if *val > &1 {
+            if occurences == 0 {
+                occurences = **val;
+                nums.push(key);
+                println!("{:?}", nums);
+            } else {
+                if *val < &occurences {
+                    break
+                } else {
+                    nums.push(key);
+                    println!("{:?}", nums)
+                }
+            }
+            println!("key: {} val: {}", key, val);
+            count += 1;
+
+        } else if *val == &1 {
+            if count == 0 {
+                println!("There is no mode. All numbers occur just once.\n");
+                return
+            } else {
+                break
+            }
+        }
+    }
+
+    if &nums.len() == &num_count.len() {
+        if &nums.len() == &1 {
+            println!("There is no mode. {} is the only number in the series, and it occurs {} times.\n", &nums[0], &occurences);
+        } else if &nums.len() != &1 {
+            println!("There is no mode. All numbers occur {} times.\n", &occurences);
+        }
+    } else {
+        if &nums.len() == &1 {
+            println!("The mode of this series is {}. It occurs {} times.\n", nums[0], occurences);
+        } else if &nums.len() == &2 {
+            println!("The mode of this series is {} and {}. They both occur {} times.\n", nums[0], nums[1], occurences);
+        } else {
+            nums.sort();
+            print!("The mode of this series is ");
+            for index in 0..&nums.len() - 1 {
+                print!("{}, ", nums[index]);
+            }
+            println!("and {}. They each occur {} times.\n", nums[nums.len() - 1], occurences);
+        }
+    } 
 }
