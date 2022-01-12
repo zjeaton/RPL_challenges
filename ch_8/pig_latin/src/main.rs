@@ -44,27 +44,75 @@ fn main() {
 
     println!("\n{:?}", text);
 
-    let mut text2 = Vec::new();
+    let mut text_vec = Vec::new();
     for word in &text {
+
         let mut count = 0;
-        
-        let mut word2 = word.to_string();
+        let mut front_punc = Vec::new();
+        let mut letters = String::new();
+        let mut end_punc = Vec::new();
+
+        let mut front_punc_string = String::new();
+        let mut front_punc_count: usize = 0;
         for c in word.chars() {
-            
+            match c {
+                ('a'..='z') | ('A'..='Z') => break,
+                _ => {
+                    front_punc.push(c);
+                    front_punc_count += 1;
+                },
+            }
+        }
+        for &c in &front_punc {
+            front_punc_string.push(c);
+        }
+        println!("{}", front_punc_string);
+
+        let mut end_punc_string = String::new();
+        let mut end_punc_string_rev = String::new();
+        let mut end_punc_count: usize = 0;
+        for c in word.chars().rev() {
+            match c {
+                ('a'..='z') | ('A'..='Z') => break,
+                _ => {
+                    end_punc.push(c);
+                    end_punc_count += 1;
+                },
+            }
+        }
+        for &c in &end_punc {
+            end_punc_string.push(c);
+        }
+
+        for c in end_punc_string.chars().rev() {
+            end_punc_string_rev.push(c);
+        }
+
+        let mut front_punc_removed = ""; 
+        front_punc_removed = &word[front_punc_count..word.len()];
+        println!("{}", front_punc_removed);
+
+        let mut punc_removed = "";
+        punc_removed = &front_punc_removed[0..front_punc_removed.len() - end_punc_count];
+        println!("{}", punc_removed);
+
+        for c in punc_removed.chars() {
             match c {
                 'a' | 'e' | 'i' | 'o' | 'u' | 'A' | 'E' | 'I' | 'O' | 'U' => {
                     if count == 0 {
-                        word2.push('w');
-                        word2.push('a');
-                        word2.push('y');
+                        letters = punc_removed.to_string();
+                        letters.push('w');
+                        letters.push('a');
+                        letters.push('y');
                         break
                     }
                 },
-                _ => (),
+                _ => letters = word.to_string(),
             }
             count += 1;
         }
-        text2.push(word2);
+        let rebuilt_word = front_punc_string + &letters + &end_punc_string_rev;
+        text_vec.push(rebuilt_word);
     }
-    println!("{:?}", text2);
+    println!("{:?}", text_vec);
 }
