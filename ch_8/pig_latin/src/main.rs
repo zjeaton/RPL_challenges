@@ -64,7 +64,6 @@ fn main() {
         for &c in &front_punc {
             front_punc_string.push(c);
         }
-        println!("{}", front_punc_string);
 
         let mut end_punc_string = String::new();
         let mut end_punc_string_rev = String::new();
