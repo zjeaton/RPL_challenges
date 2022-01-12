@@ -42,8 +42,6 @@ fn main() {
         text.push(word);
     }
 
-    println!("\n{:?}", text);
-
     let mut text_vec = Vec::new();
     for word in &text {
 
@@ -90,11 +88,9 @@ fn main() {
 
         let mut front_punc_removed = ""; 
         front_punc_removed = &word[front_punc_count..word.len()];
-        println!("{}", front_punc_removed);
 
         let mut punc_removed = "";
         punc_removed = &front_punc_removed[0..front_punc_removed.len() - end_punc_count];
-        println!("{}", punc_removed);
 
         let mut cap = false;
         let mut consanants = Vec::new();
@@ -136,7 +132,6 @@ fn main() {
         let rebuilt_word = front_punc_string + &letters + &end_punc_string_rev;
         text_vec.push(rebuilt_word);
     }
-    println!("{:?}", text_vec);
 
     for word in text_vec {
         print!("{} ", word);
