@@ -96,23 +96,73 @@ fn main() {
         punc_removed = &front_punc_removed[0..front_punc_removed.len() - end_punc_count];
         println!("{}", punc_removed);
 
+        let mut cap = false;
+        let mut consanants = Vec::new();
+        let mut consanant_count = 0;
         for c in punc_removed.chars() {
-            match c {
+            letters = punc_removed.to_string();
+            match c  {
                 'a' | 'e' | 'i' | 'o' | 'u' | 'A' | 'E' | 'I' | 'O' | 'U' => {
                     if count == 0 {
-                        letters = punc_removed.to_string();
-                        letters.push('w');
-                        letters.push('a');
-                        letters.push('y');
+                        &letters.push('w');
+                        break
+                    } else {
                         break
                     }
                 },
-                _ => letters = word.to_string(),
+                _ =>  {
+                    if c.is_uppercase() {
+                        cap = true;
+                        c.to_lowercase();
+                    }
+                    consanants.push(c);
+                    consanant_count += 1;
+                },
             }
             count += 1;
         }
+
+        for c in consanants {
+            &letters.push(c);
+        }
+        letters = letters[consanant_count..letters.len()].to_string();
+        letters.push('a');
+        letters.push('y');
+        if cap == true {
+            letters = letters.to_lowercase();
+            letters = cap_first_letter(letters);
+        }
+
         let rebuilt_word = front_punc_string + &letters + &end_punc_string_rev;
         text_vec.push(rebuilt_word);
     }
     println!("{:?}", text_vec);
+
+    for word in text_vec {
+        print!("{} ", word);
+    }
+    println!("");
+}
+
+fn cap_first_letter(s: String) -> String {
+    let mut letters = Vec::new();
+    for c in s.chars() {
+        letters.push(c);
+    }
+    
+    let first_letter = letters[0].to_string();
+    let first_letter = first_letter.to_uppercase();
+
+    let mut chars = Vec::new();
+    for c in first_letter.chars() {
+        chars.push(c);
+    }
+
+    letters[0] = chars[0];
+
+    let mut string = String::new();
+    for c in letters {
+        string.push(c);
+    }
+    string
 }
