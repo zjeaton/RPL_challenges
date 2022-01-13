@@ -92,6 +92,7 @@ fn main() {
         let mut cap = false;
         let mut consanants = Vec::new();
         let mut consanant_count = 0;
+        
         for c in punc_removed.chars() {
             letters = punc_removed.to_string();
             match c  {
@@ -117,9 +118,11 @@ fn main() {
         for c in consanants {
             letters.push(c);
         }
+
         letters = letters[consanant_count..letters.len()].to_string();
         letters.push('a');
         letters.push('y');
+
         if cap == true {
             letters = letters.to_lowercase();
             letters = cap_first_letter(letters);
