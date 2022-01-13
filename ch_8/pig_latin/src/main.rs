@@ -84,12 +84,10 @@ fn main() {
         for c in end_punc_string.chars().rev() {
             end_punc_string_rev.push(c);
         }
+ 
+        let front_punc_removed = &word[front_punc_count..word.len()];
 
-        let mut front_punc_removed = ""; 
-        front_punc_removed = &word[front_punc_count..word.len()];
-
-        let mut punc_removed = "";
-        punc_removed = &front_punc_removed[0..front_punc_removed.len() - end_punc_count];
+        let punc_removed = &front_punc_removed[0..front_punc_removed.len() - end_punc_count];
 
         let mut cap = false;
         let mut consanants = Vec::new();
@@ -99,7 +97,7 @@ fn main() {
             match c  {
                 'a' | 'e' | 'i' | 'o' | 'u' | 'A' | 'E' | 'I' | 'O' | 'U' => {
                     if count == 0 {
-                        &letters.push('w');
+                        letters.push('w');
                         break
                     } else {
                         break
@@ -108,7 +106,6 @@ fn main() {
                 _ =>  {
                     if c.is_uppercase() {
                         cap = true;
-                        c.to_lowercase();
                     }
                     consanants.push(c);
                     consanant_count += 1;
@@ -118,7 +115,7 @@ fn main() {
         }
 
         for c in consanants {
-            &letters.push(c);
+            letters.push(c);
         }
         letters = letters[consanant_count..letters.len()].to_string();
         letters.push('a');
@@ -132,6 +129,7 @@ fn main() {
         text_vec.push(rebuilt_word);
     }
 
+    print!("\n");
     for word in text_vec {
         print!("{} ", word);
     }
