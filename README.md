@@ -13,3 +13,4 @@ All problems are completed according to prompts, but without referencing answers
 ### Chapter 8
 
     * Command-line calculator that takes any length string of numbers and returns mean, median, and mode.
+    * Command-line program that takes a block of text and converts it to pig latin.
